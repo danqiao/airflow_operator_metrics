@@ -1,16 +1,28 @@
-version: '3.4'
-services:
-  redis:
-    image: redis:3.2.7
+# Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。然后，使用一个命令，就可以从 YML 文件配置中创建并启动所有服务。
+# 参数含义：
+  # ********************************************************************************
+  # version：版本注释，不可缺少的字段。
+  # services：该层级下指明使用镜像开启容器的具体配置，是最主要的配置项。
+  # flask-web、redis：自定义的该service名字。
+  # build：Dockerfile的路径，使用它来创建一个定制的镜像，或者可使用image指定已有镜像。
+  # image：指定使用已有镜像。
+  # ports：开启容器后暴露的端口映射。
+  # container_name:指定开启容器后的容器名。
+  # ********************************************************************************
 
-  postgres:
-    image: postgres:11
+version: '3.4' # 版本注释，不可缺少的字段
+services:  # 该层级下指明使用镜像开启容器的具体配置，是最主要的配置项
+  redis: # 自定义的service名字
+    image: redis:3.2.7 # 指定使用已有的镜像
+
+  postgres: # 自定义的service名字
+    image: postgres:11 # 指定使用已有的镜像
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
 
-  airflow_webserver:
-    image: puckel/docker-airflow:1.10.1
+  airflow_webserver: # 自定义的service名字
+    image: puckel/docker-airflow:1.10.1 # 指定使用已有的镜像
     command: webserver
     ports:
       - "localhost:8080:8080"
@@ -18,8 +30,9 @@ services:
       EXECUTOR: Celery
     volumes:
       - ./dags:/usr/local/airflow/dags
-  airflow_scheduler:
-    image: puckel/docker-airflow:1.10.1
+
+  airflow_scheduler: # 自定义的service名字
+    image: puckel/docker-airflow:1.10.1 # 指定使用已有的镜像
     command: scheduler
     depends_on:
       - airflow_webserver
@@ -27,8 +40,9 @@ services:
         - ./dags:/usr/local/airflow/dags
     environment:
       EXECUTOR: Celery
-  airflow_worker:
-    image: puckel/docker-airflow:1.10.1
+
+  airflow_worker: # 自定义的service名字
+    image: puckel/docker-airflow:1.10.1 # 指定使用已有的镜像
     command: worker
     depends_on:
         - airflow_scheduler
@@ -37,8 +51,8 @@ services:
     environment:
       EXECUTOR: Celery
 
-  airflow-exporter:
-    image: mastak/airflow_operator_stats:ubuntu
+  airflow-exporter: # 自定义的service名字
+    image: mastak/airflow_operator_stats:ubuntu # 指定使用已有的镜像
     ports:
       - 8000
     volumes:
@@ -48,8 +62,8 @@ services:
       CUSTOM_PROCFS_PATH: /host/proc
       HOSTNAME_PATH: /host/hostname
 
-  prometheus:
-    image: prom/prometheus:v2.6.0
+  prometheus: # 自定义的service名字
+    image: prom/prometheus:v2.6.0 # 指定使用已有的镜像
     ports:
       - 9090
     command:
@@ -59,7 +73,7 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
 
-  grafana:
+  grafana: # 自定义的service名字
     image: grafana/grafana:5.4.2
     ports:
       - "localhost:3000:3000"

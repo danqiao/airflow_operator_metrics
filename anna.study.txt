@@ -1,0 +1,11 @@
+1. 该exporter核心思想:
+    利用Python的psutil模块，获取当前Worker节点上运行的process信息，先对其进行筛选，得到Airflow进程的相关数据，
+    然后进行进一步的解析，最终包装成gauge类型提供给promethus.
+
+2. DS 使用流程: source code -> Dockerfile -> image -> ecr -> k8s chart -> deploy to k8s
+    a. 编写Dockerfile 创建在Ds的k8s环境中可以使用的docker image
+        ->?如何测试该image的可用性:
+            创建image之后，手动上传到k8s集群 通过kubectrl run命令启动该image; check能不能抓取到相应的信息
+    b. 编写K8s chart文件 通过Helm统一部署分发exporter?? 如何测试
+    c. DS jenckins Pipeline 自动化build docker image 以及上传到ecr
+    d.

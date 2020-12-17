@@ -1,7 +1,7 @@
 ## Airflow operator stats
 
 Gather system information about airflow processes. 
-
+根据Airflow Worker节点运行的process 名称对其进行筛选，解析，得到Airflow进行对资源的使用情况
 ### How to use 
 
 * Run airflow_operators_metrics container on each node with airflow workers like:  

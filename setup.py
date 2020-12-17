@@ -9,7 +9,7 @@ with open('requirements.txt', 'r') as f:
         ] if not s.startswith('#') and s != ''
     ]
 
-
+# 打包脚本
 setup(
     name='airflow_operators_metrics',
     description='Collector system metrics of airflow processes',
