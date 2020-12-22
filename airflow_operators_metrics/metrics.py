@@ -178,6 +178,7 @@ def _get_process_name(metrics: ProcessMetrics):
 
 def get_airflow_data(process: psutil.Process) -> t.Optional[t.Dict[str, t.Union[str, bool]]]:
     cmdline = process.cmdline()
+    logger.info(f'process: {cmdline}')
     if not cmdline or not cmdline[0].startswith('/usr/bin/python'):
         return None
 

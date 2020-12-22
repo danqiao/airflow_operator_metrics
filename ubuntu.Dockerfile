@@ -1,4 +1,4 @@
-FROM ubuntu:18.10
+FROM ubuntu:20.10
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
