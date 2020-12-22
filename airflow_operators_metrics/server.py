@@ -30,7 +30,7 @@ if __name__ == '__main__':
     prom.start_http_server(http_port)
     metrics = MetricsContainer(name_prefix, global_labels=labels)
     try:
-        while True:
+        # while True:
             metrics.collect()
             time.sleep(sleep_seconds)
     except KeyboardInterrupt:
