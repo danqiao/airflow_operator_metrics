@@ -122,6 +122,7 @@ class MetricsContainer:
 def _get_processes_metrics() -> t.Iterator[ProcessMetrics]:
     for process in psutil.process_iter():
         try:
+            logger.info(f'processes info {process.__str__()}')
             airflow_data = get_airflow_data(process)
             if not airflow_data:
                 continue
